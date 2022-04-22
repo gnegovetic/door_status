@@ -1,0 +1,26 @@
+{
+  "name": "door-status-api",
+  "version": "1.0.0",
+  "description": "Door status",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index.js",
+    "test": "jest"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "aws-sdk": "^2.686.0",
+    "connect": "^3.2.0",
+    "dotenv": "^16.0.0",
+    "js-yaml": "^3.3.0",
+    "oas3-tools": "^2.2.3"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
+}

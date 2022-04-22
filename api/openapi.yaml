@@ -1,0 +1,135 @@
+openapi: 3.0.0
+info:
+  title: Door Status API
+  description: Door status
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/rainy_day/door_status/1.0.0
+  description: SwaggerHub API Auto Mocking
+paths:
+  /status:
+    get:
+      summary: Get door status
+      description: Get door status information
+      operationId: statusGET
+      responses:
+        "200":
+          description: Door status response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "400":
+          description: Bad parameter error
+          content:
+            text/plain:
+              example: Parameter Error
+        "440":
+          description: Error message
+          content:
+            text/plain:
+              example: Error
+      x-swagger-router-controller: Default
+  /notification:
+    put:
+      summary: Test message
+      operationId: notificationPUT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/notification_body'
+        required: true
+      responses:
+        "200":
+          description: message sent
+        "401":
+          description: API key is missing or invalid
+          headers:
+            WWW_Authenticate:
+              style: simple
+              explode: false
+              schema:
+                type: string
+        "440":
+          description: error sending message
+      security:
+      - ApiKeyAuth: []
+      x-swagger-router-controller: Default
+  /delay:
+    put:
+      summary: Delay notification by specified time in minutes
+      operationId: delayPUT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/delay_body'
+        required: true
+      responses:
+        "200":
+          description: OK
+        "440":
+          description: Invalid notification delay value
+          content:
+            text/plain:
+              schema:
+                type: string
+                description: Error message
+                example: Invalid notification delay value
+                x-content-type: text/plain
+      security:
+      - ApiKeyAuth: []
+      x-swagger-router-controller: Default
+components:
+  schemas:
+    Status:
+      type: object
+      properties:
+        status_closed:
+          type: boolean
+          example: true
+        last_change:
+          type: string
+          example: 2019-12-15T17:55:32.000Z
+        last_read:
+          type: string
+          example: 2019-12-16T18:44:55.000Z
+        service_started:
+          type: string
+          example: 2019-12-10T11:55:20.000Z
+        notification_time:
+          type: string
+          example: 2019-12-10T11:59:33.000Z
+      description: Data for status updates
+      example:
+        last_read: 2019-12-16T18:44:55.000Z
+        status_closed: true
+        last_change: 2019-12-15T17:55:32.000Z
+        service_started: 2019-12-10T11:55:20.000Z
+        notification_time: 2019-12-10T11:59:33.000Z
+    notification_body:
+      required:
+      - test_message
+      type: object
+      properties:
+        test_message:
+          type: string
+          example: Test Message
+    delay_body:
+      required:
+      - minutes
+      properties:
+        minutes:
+          maximum: 240
+          minimum: 0
+          type: integer
+          default: 5
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: X-API-Key
+      in: header
