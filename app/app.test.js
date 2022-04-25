@@ -51,9 +51,9 @@ test('check open/close timing', async() => {
     try {
         let stat = app.GetStatus();
         expect(stat.doorClosed).toBe(false);
-        // Should be within 100ms
-        expect(stat.lastUpdate.getTime() / 100).toBeCloseTo(stat.serviceStarted.getTime() / 100, 1.0);
-        expect(stat.lastUpdate.getTime() / 100).toBeCloseTo(stat.lastChange.getTime() / 100, 1.0);
+        // Just started, all timers should be within 100ms
+        expect(stat.lastUpdate.getTime() - stat.serviceStarted.getTime()).toBeLessThan(100);
+        expect(stat.lastUpdate.getTime() - stat.lastChange.getTime()).toBeLessThan(100);
 
         // make a change
         app.SetTestInputValue(0);

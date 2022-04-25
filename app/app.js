@@ -48,7 +48,7 @@ class App {
         console.log("Message to send: " + message);
 
         if (this.mode !== 'test') {
-            this.awsNotification.Send(message, channel);
+            this.awsNotification.Send(message, this.mode);
         }
     }
 
