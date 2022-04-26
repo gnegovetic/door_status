@@ -84,6 +84,31 @@ paths:
       security:
       - ApiKeyAuth: []
       x-swagger-router-controller: Default
+  /input_value:
+    put:
+      summary: Set sensor value for debugging. Not available in production
+      operationId: input_valuePUT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/input_value_body'
+        required: true
+      responses:
+        "200":
+          description: OK
+        "440":
+          description: Input value not settable
+          content:
+            text/plain:
+              schema:
+                type: string
+                description: Error message
+                example: Input value invalid or not settable
+                x-content-type: text/plain
+      security:
+      - ApiKeyAuth: []
+      x-swagger-router-controller: Default
 components:
   schemas:
     Status:
@@ -128,6 +153,15 @@ components:
           minimum: 0
           type: integer
           default: 5
+    input_value_body:
+      required:
+      - value
+      properties:
+        value:
+          maximum: 1
+          minimum: 0
+          type: integer
+          default: 0
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

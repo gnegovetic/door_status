@@ -2,7 +2,7 @@
 
 var path = require('path');
 var http = require('http');
-require('./app.js');
+require('./app/app.js');
 
 var oas3Tools = require('oas3-tools');
 var serverPort = 8080;

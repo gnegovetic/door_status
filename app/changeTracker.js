@@ -53,8 +53,9 @@ class ChangeTrancker {
 
         // Read input and update if changed
         let inputValue = this.sensor.ReadInput();
+
         if (inputValue != this.inputVal) {
-            this.inputVal = inputValue;
+            this.inputVal = inputValue; // remember for next time
             this.lastChange = date;
         }
             
@@ -62,8 +63,14 @@ class ChangeTrancker {
 
         // Count down to notification and sent notification if expired
         if (isClosed == true) {
+
+            if (this.notificationAlreadySent) {
+                var now = new Date();
+                let msg = `Door closed at ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+                this.app.SendMessage(msg);
+            }
+
             this.notificationAlreadySent = false;
-            //console.log("Notification: door closed.");
             this.secondsToNextNotification = this.notificationDelayMinutes * 60; // reset the countdown
         }
         else {

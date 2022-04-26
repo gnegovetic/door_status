@@ -1,5 +1,7 @@
 'use strict';
 
+const App = require('../app/app.js')
+let app = new App();
 
 /**
  * Delay notification by specified time in minutes
@@ -9,7 +11,41 @@
  **/
 exports.delayPUT = function(body) {
   return new Promise(function(resolve, reject) {
-    resolve();
+
+    try {
+      app.SetDelayTime(parseInt(body.minutes));
+
+      resolve();
+    }
+    catch(e) {
+      reject(e.message);
+    }
+  });
+}
+
+
+/**
+ * Set sensor value for debugging. Not available in production
+ *
+ * body Input_value_body 
+ * no response value expected for this operation
+ **/
+exports.input_valuePUT = function(body) {
+  return new Promise(function(resolve, reject) {
+
+    try {
+      let value = body.value;
+      let val = parseInt(value);
+      if (val !==0 && val !== 1)
+        throw Error("Invalid value.");
+
+      app.SetTestInputValue(val);
+
+      resolve();
+    }
+    catch (e) {
+      reject(e.message);
+    }
   });
 }
 
@@ -35,19 +71,19 @@ exports.notificationPUT = function(body) {
  **/
 exports.statusGET = function() {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "last_read" : "2019-12-16T18:44:55.000Z",
-  "status_closed" : true,
-  "last_change" : "2019-12-15T17:55:32.000Z",
-  "service_started" : "2019-12-10T11:55:20.000Z",
-  "notification_time" : "2019-12-10T11:59:33.000Z"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+
+    let status = app.GetStatus();
+
+    const response = {
+      "last_read" : status.lastUpdate.toLocaleString(),
+      "status_closed" : status.doorClosed,
+      "last_change" : status.lastChange.toLocaleString(),
+      "service_started" : status.serviceStarted.toLocaleString(),
+      "notification_time" : status.secondsToNextNotification
+    };
+    
+    resolve(response);
+
   });
 }
 
