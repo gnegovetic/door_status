@@ -1,7 +1,6 @@
 #! /bin/bash
 echo "Starting Node"
-node ./index.js &
-#docker-compose -f Docker/docker-compose.yaml up -d
+docker-compose -f ./docker-compose.yaml up -d
 echo "Done."
 
 # On raspberry, call from /etc/rc.local
