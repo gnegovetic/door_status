@@ -9,8 +9,9 @@ ENV TZ="America/Los_Angeles"
 # Create local app directory
 WORKDIR /usr/app
 
-# Copy all sources to app dir
-COPY . .
-
 # Install dependecies
+COPY package*.json ./
 RUN npm install
+
+# Copy all sources
+COPY ./source/ ./source/
