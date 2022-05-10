@@ -13,5 +13,8 @@ WORKDIR /usr/app
 COPY package*.json ./
 RUN npm install
 
+# Copy secrets
+COPY .env ./
+
 # Copy all sources
 COPY ./source/ ./source/
