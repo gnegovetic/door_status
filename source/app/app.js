@@ -45,11 +45,21 @@ class App {
 
 
     SendMessage(message) {
-        console.log("Message to send: " + message);
 
-        if (this.mode !== 'test') {
-            this.awsNotification.Send(message, this.mode);
-        }
+        return new Promise((resolve, reject) => {
+            console.log("Message to send: " + message);
+
+            if (this.mode !== 'test') {
+                this.awsNotification.Send(message, this.mode).then(() => {
+                    resolve();
+                }).catch(error => {
+                    reject(error);
+                });
+            }
+            else {
+                resolve();
+            }
+        });
     }
 
     SetTestInputValue(val) {

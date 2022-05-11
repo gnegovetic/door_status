@@ -55,7 +55,7 @@ module.exports.notificationPUT = function notificationPUT (req, res, next, body)
       utils.writeJson(res, response);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 440);
     });
 };
 
