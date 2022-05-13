@@ -59,14 +59,12 @@ exports.input_valuePUT = function(body) {
 exports.notificationPUT = function(body) {
   return new Promise(function(resolve, reject) {
 
-    try {
-      app.SendMessage(body.test_message);
-    
-      resolve();
-    }
-    catch(e) {
-      reject(e.message);
-    }
+      app.SendMessage(body.test_message).then(() => {
+        resolve();
+      }).catch(error => {
+        reject(error.message);
+      });
+
   });
 }
 
