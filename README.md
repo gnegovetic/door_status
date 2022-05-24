@@ -16,7 +16,7 @@ Required:
 * A strong magnet placed on the garage door, example: https://www.amazon.com/gp/product/B06XD2X45M
 * Raspberry Pi mounted such that the Hall switch is close to the magnet and detects when the door is closed
 
-See reference pictures:
+Reference pictures: \
 ![pic1](./pics/sensor.PNG)
 ![pic2](./pics/sensor2.PNG)
 
