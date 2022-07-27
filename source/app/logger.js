@@ -5,15 +5,19 @@ const fs = require('fs');
 
 class Logger {
 
-    constructor() {    
-        this.log_file = "door_log.csv";    
+    constructor() {
+        const log_dir = 'log';
+        if (!fs.existsSync(log_dir)) {
+            fs.mkdirSync(log_dir); 
+        }   
+        this.log_file = log_dir + "/door_log.csv";    
     }
 
     async Log(isOpen) {
         let log_item = await this.CreateLogString(isOpen);
 
         try {
-            fs.appendFileSync('log.csv', '\n' + log_item);
+            fs.appendFileSync(this.log_file, '\n' + log_item);
         }
         catch(err) {
             console.log("Error logging to file: "+ err);
