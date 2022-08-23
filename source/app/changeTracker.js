@@ -1,5 +1,7 @@
-// This class tracks when the 'inputVal' chage has occured
+// This class tracks when the 'inputVal' change has occurred
 'use strict';
+
+const Logger = require('./logger');
 
 class ChangeTrancker {
 
@@ -24,6 +26,7 @@ class ChangeTrancker {
 
         this.notificationAlreadySent = false;
 
+        this.logger = new Logger();
     }
 
     set NotificationDelayMinutes(val) {
@@ -53,13 +56,14 @@ class ChangeTrancker {
 
         // Read input and update if changed
         let inputValue = this.sensor.ReadInput();
+        let isClosed = inputValue == 0 ? true : false;
 
         if (inputValue != this.inputVal) {
             this.inputVal = inputValue; // remember for next time
             this.lastChange = date;
+
+            this.logger.Log(isClosed);  // Log the change
         }
-            
-        let isClosed = this.inputVal == 0 ? true : false;
 
         // Count down to notification and sent notification if expired
         if (isClosed == true) {
