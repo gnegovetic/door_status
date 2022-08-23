@@ -7,7 +7,7 @@
         {
             "name": "Test via NPM",
             "request": "launch",
-            "runtimeArgs": ["test"],
+            "runtimeArgs": ["test", "log"],
             "runtimeExecutable": "npm",
             "type": "node"
         },
