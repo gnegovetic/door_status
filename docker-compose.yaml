@@ -10,6 +10,7 @@ services:
     volumes:
       - /sys/devices/platform/soc/20200000.gpio:/sys/devices/platform/soc/20200000.gpio
       - /sys/class/gpio:/sys/class/gpio
+      - /home/pi/log:/usr/app/log
     ports:
       - 8080:8080
     networks:
