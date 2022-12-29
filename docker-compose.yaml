@@ -4,7 +4,7 @@ services:
   door_status:
     build:
       context: .
-    image: door_status:1.1
+    image: door_status:1.2
     restart: unless-stopped
     command: node source/index.js
     volumes:
