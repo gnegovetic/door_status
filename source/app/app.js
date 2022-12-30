@@ -24,8 +24,8 @@ class App {
         this.sensor = new Sensor((mode === 'test') ? true : false);
 
         // Create notification object
-        const AwsNotification = require('./awsNotificationSend.js');
-        this.awsNotification = new AwsNotification();
+        const Notifier = require('./emailer');
+        this.notifier = new Notifier();
 
         // Init the time keeper
         const ChangeTrancker = require('./changeTracker.js');
@@ -43,22 +43,20 @@ class App {
         this.ct.StopPollLoop();
     }
 
+    get Mode() {
+        return this.mode;
+    }
 
     SendMessage(message) {
 
         return new Promise((resolve, reject) => {
             console.log("Message to send: " + message);
 
-            if (this.mode !== 'test') {
-                this.awsNotification.Send(message, this.mode).then(() => {
-                    resolve();
-                }).catch(error => {
-                    reject(error);
-                });
-            }
-            else {
+            this.notifier.Send(message, this.mode).then(() => {
                 resolve();
-            }
+            }).catch(error => {
+                reject(error);
+            });
         });
     }
 

@@ -15,8 +15,6 @@ RUN npm install
 
 # Copy secrets
 COPY .env .
-COPY credentials .
-RUN mkdir ~/.aws && cp credentials ~/.aws/
 
 # Copy all sources
 COPY ./source/ ./source/

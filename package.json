@@ -14,11 +14,11 @@
   "license": "Unlicense",
   "private": true,
   "dependencies": {
-    "aws-sdk": "^2.1121.0",
     "axios": "^0.27.2",
     "connect": "^3.2.0",
     "dotenv": "^16.0.0",
     "js-yaml": "^3.3.0",
+    "nodemailer": "^6.8.0",
     "oas3-tools": "^2.2.3",
     "onoff": "^6.0.1"
   },
