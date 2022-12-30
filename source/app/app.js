@@ -43,6 +43,9 @@ class App {
         this.ct.StopPollLoop();
     }
 
+    get Mode() {
+        return this.mode;
+    }
 
     SendMessage(message) {
 

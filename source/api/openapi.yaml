@@ -117,6 +117,9 @@ components:
         status_closed:
           type: boolean
           example: true
+        mode:
+          type: string
+          example: prod
         last_change:
           type: string
           example: 2019-12-15T17:55:32.000Z
@@ -133,6 +136,7 @@ components:
       example:
         last_read: 2019-12-16T18:44:55.000Z
         status_closed: true
+        mode: prod
         last_change: 2019-12-15T17:55:32.000Z
         service_started: 2019-12-10T11:55:20.000Z
         notification_time: 2019-12-10T11:59:33.000Z

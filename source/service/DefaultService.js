@@ -83,6 +83,7 @@ exports.statusGET = function() {
     const response = {
       "last_read" : status.lastUpdate.toLocaleString(),
       "status_closed" : status.doorClosed,
+      "mode" : app.Mode,
       "last_change" : status.lastChange.toLocaleString(),
       "service_started" : status.serviceStarted.toLocaleString(),
       "notification_time" : status.secondsToNextNotification
